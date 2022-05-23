@@ -22,7 +22,11 @@ class ClassState extends React.Component{
                 <p>Error: El código de seguridad es incorrecto</p>
             )}
                 <input placeholder='Código de seguridad'/>
-                <button>Comprobar</button>
+                <button
+                    onClick={()=>{
+                        this.setState({error: !this.state.error})
+                    }}
+                >Comprobar</button>
             </div>
         )
     }
