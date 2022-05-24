@@ -6,11 +6,18 @@ class ClassState extends React.Component{
         //Se llama el constructor de extends
         super(props)
         this.state = {
-            error : false
+            error : false,
+            loading : false
+        }
+    }
+    componentDidUpdate(){
+        if(this.state.loading){
+            setTimeout(()=>{
+                this.setState({loading: !this.state.loading})
+            }, 2000)
         }
     }
     render () {
-        
         return (
             <div>
                 <h2>
@@ -20,11 +27,15 @@ class ClassState extends React.Component{
 
                 {this.state.error && (
                 <p>Error: El código de seguridad es incorrecto</p>
-            )}
+                )}
+                {this.state.loading && (
+                <p>Cargando ... </p>
+                )}
                 <input placeholder='Código de seguridad'/>
                 <button
                     onClick={()=>{
-                        this.setState({error: !this.state.error})
+                       // this.setState({error: !this.state.error})
+                        this.setState({loading: !this.state.loading})
                     }}
                 >Comprobar</button>
             </div>
