@@ -14,12 +14,11 @@ function UseState({name}){
         error : false,
         inputCode: '',
         loading:false,
-        delected :false,
+        deleted :false,
         confirm :false,
     });
     
     React.useEffect(()=>{
-        console.log('inicio efecto')        
         if(state.loading){
             //setError(false)
             setState({
@@ -31,20 +30,24 @@ function UseState({name}){
                     //setError(true)
                     setState({
                         ...state,
-                        error: true
+                        error: true,
+                        loading: false                
                     })
+                    console.log('error')
+                }else{
+                    setState({
+                        ...state,
+                        confirm: true,
+                        loading: false                
+                    })
+                    console.log('correcto')        
                 }
-                //setLoading(false); 
-                setState({
-                    ...state,
-                    loading: false
-                })                                   
+                //setLoading(false);                                                
             }, 2000)
         }
-        console.log('fin efecto')
     }, [state.loading])
 
-    if(!state.delected && !state.confirm){
+    if(!state.deleted && !state.confirm){
         return (
             <div>
                 <h2>
@@ -79,10 +82,53 @@ function UseState({name}){
                 }}>Comprobar</button>
             </div>
         )
-    }else if(!state.delected && state.confirm){
+    }
+    else if(state.confirm && !state.deleted){
+        return (
+            <React.Fragment>
+                <p>
+                    ¿Está seguro que deseas eliminar?                    
+                </p>
+                <button
+                  onClick={()=>{
+                    setState({
+                        ...state,
+                        confirm: false,
+                        inputCode: ''
 
-    }else{
-        
+                    })
+                }}
+                >Cancelar</button>
+                <button
+               
+                onClick={()=>{
+                    setState({
+                        ...state,
+                        deleted: true
+                    })
+                }}
+                >Eliminar</button>
+            </React.Fragment>
+        )
+    }
+    else{
+        return (
+            <React.Fragment>
+                <p>
+                    Estado eliminado
+                </p>
+                <button
+                  onClick={()=>{
+                    setState({
+                        ...state,
+                        confirm: false,
+                        deleted: false,
+                        inputCode: ''
+                    })
+                }}
+                >Recuperar estado</button>
+            </React.Fragment>
+        )
     }
 }
 
