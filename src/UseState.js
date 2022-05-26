@@ -3,7 +3,7 @@ import React from 'react';
 
 //securityCode
 const SECURITY_CODE = 'paradigma';
-function UseState({name}){
+function UseState({name}){  
     //estados independientes
   /*   const [error, setError] = React.useState(false);
     const [inputCode, setCode] = React.useState('');
@@ -18,6 +18,20 @@ function UseState({name}){
         confirm :false,
     });
     
+    const onConfirm = ()=>{
+        setState({
+            ...state,
+            confirm: true,
+            loading: false                
+        })
+    }
+    const onError = ()=>{
+        setState({
+            ...state,
+            error: true,
+            loading: false                
+        })
+    }
     React.useEffect(()=>{
         if(state.loading){
             //setError(false)
@@ -28,18 +42,10 @@ function UseState({name}){
             setTimeout(()=>{
                 if(state.inputCode !== SECURITY_CODE){
                     //setError(true)
-                    setState({
-                        ...state,
-                        error: true,
-                        loading: false                
-                    })
+                    onError();
                     console.log('error')
                 }else{
-                    setState({
-                        ...state,
-                        confirm: true,
-                        loading: false                
-                    })
+                    onConfirm();
                     console.log('correcto')        
                 }
                 //setLoading(false);                                                
